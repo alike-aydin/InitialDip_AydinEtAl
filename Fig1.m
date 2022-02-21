@@ -37,40 +37,40 @@ ET4mV = dlmread(fullfile(cd, 'ET_4mV_2sec_deltaCa_MSG8.txt'), '\t', 1, 0);
 ET4mV = ET4mV(:, [1:8 11:20]);% Columns 9 & 10 are an empty ROI (full of 0s)
 MSG_ROI.ET4mV = 3; % Most sensitive glomerulus is in the 3rd ROI of this analysis
 
-yL = [-50 100]; xL = [2 10];
+yL = [-50 100]; xL = [0 8]; timeOffset = 2;
 
 figure;
 subplot(211); title('ET 1% 2 s'); hold on;
-patch('XData', [5 7 7 5], 'YData', ...
+patch('XData', [3 5 5 3], 'YData', ...
     [yL(1) yL(1) yL(2) yL(2)], 'FaceColor', colorStim, 'EdgeColor', ...
     'none', 'FaceAlpha', 0.5, 'DisplayName', 'Stimulus');
 
 for i=1:9
     if i~= MSG_ROI.ET200mV
-        plot(ET200mV(:, i*2-1), ET200mV(:, i*2), 'Color', 'k', ...
+        plot(ET200mV(:, i*2-1)- timeOffset, ET200mV(:, i*2), 'Color', 'k', ...
             'LineWidth', 1);
     end
 end
 
-plot(ET200mV(:, MSG_ROI.ET200mV*2-1), ET200mV(:, MSG_ROI.ET200mV*2), ...
+plot(ET200mV(:, MSG_ROI.ET200mV*2-1) - timeOffset, ET200mV(:, MSG_ROI.ET200mV*2), ...
     'Color', colors{1}, 'LineWidth', 2);
 ylabel('\Delta Ca^{2+} (a.u.)'); 
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
 subplot(212); title('ET 0.02% 2 s'); hold on;
-patch('XData', [5 7 7 5], 'YData', ...
+patch('XData', [3 5 5 3], 'YData', ...
     [yL(1) yL(1) yL(2) yL(2)], 'FaceColor', ...
     colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5, 'DisplayName', ...
     'Stimulus');
 
 for i=1:9
     if i~= MSG_ROI.ET4mV
-        plot(ET4mV(:, i*2-1), ET4mV(:, i*2), 'Color', 'k', ...
+        plot(ET4mV(:, i*2-1) - timeOffset, ET4mV(:, i*2), 'Color', 'k', ...
             'LineWidth', 1);
     end
 end
-plot(ET4mV(:, MSG_ROI.ET4mV*2-1), ET4mV(:, MSG_ROI.ET4mV*2), ...
+plot(ET4mV(:, MSG_ROI.ET4mV*2-1) - timeOffset, ET4mV(:, MSG_ROI.ET4mV*2), ...
     'Color', colors{1}, 'LineWidth', 2);
 xlabel('Time (s)'); ylabel('\Delta Ca^{2+} (a.u.)'); 
 ylim(yL); xlim(xL);
@@ -102,24 +102,14 @@ patch('XData', [10 12 12 10], 'YData', ...
     colorStim, 'EdgeColor', 'none','FaceAlpha', 0.5, 'DisplayName', ...
     'Stimulus');
 
-legend('AutoUpdate', 'off'); % To avoid having one legend per acquisition
-plot(CaTS.ET_20mV_2sec(1, :), CaTS.ET_20mV_2sec(2:end-2, :), ...
-    'Color', colors{3}*0.8); legend('AutoUpdate', 'on');
 plot(CaTS.ET_20mV_2sec(1, :), CaTS.ET_20mV_2sec(end-1, :), ...
     'Color', colors{3}, 'DisplayName', '0.1%', 'LineWidth', 2);
-
-legend('AutoUpdate', 'off');
-plot(CaTS.ET_200mV_2sec(1, :), CaTS.ET_200mV_2sec(2:end-2, :), ...
-    'Color', colors{2}*0.8); legend('AutoUpdate', 'on');
 plot(CaTS.ET_200mV_2sec(1, :), CaTS.ET_200mV_2sec(end-1, :), ...
     'Color', colors{2}, 'DisplayName', '1%', 'LineWidth', 2);
-
-legend('AutoUpdate', 'off');
-plot(CaTS.ET_1p5V_2sec(1, :), CaTS.ET_1p5V_2sec(2:end-2, :), ...
-    'Color', colors{1}*0.8); legend('AutoUpdate', 'on');
 plot(CaTS.ET_1p5V_2sec(1, :), CaTS.ET_1p5V_2sec(end-1, :), ...
     'Color', colors{1}, 'DisplayName', '6%', 'LineWidth', 2);
 
+xticks([0 10 20]);
 xlim(xL); ylim(yLCa); ylabel('\Delta Ca^{2+} (a.u.)');
 xlabel('Time (s)'); legend(); set(gca, 'FontSize', 13);
 hold off;
@@ -129,19 +119,14 @@ patch('XData', [10 12 12 10], 'YData', ...
     [yLRBC(1) yLRBC(1) yLRBC(2) yLRBC(2)], 'FaceColor', ...
     colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 
-plot(RBCTS.ET_20mV_2sec(1, :), RBCTS.ET_20mV_2sec(2:end-2, :), ...
-    'Color', colors{3}*0.8);
 plot(RBCTS.ET_20mV_2sec(1, :), RBCTS.ET_20mV_2sec(end-1, :), ...
     'Color', colors{3}, 'LineWidth', 2);
-plot(RBCTS.ET_200mV_2sec(1, :), RBCTS.ET_200mV_2sec(2:end-2, :), ...
-    'Color', colors{2}*0.8);
 plot(RBCTS.ET_200mV_2sec(1, :), RBCTS.ET_200mV_2sec(end-1, :), ...
     'Color', colors{2}, 'LineWidth', 2);
-plot(RBCTS.ET_1p5V_2sec(1, :), RBCTS.ET_1p5V_2sec(2:end-2, :), ...
-    'Color', colors{1}*0.8);
 plot(RBCTS.ET_1p5V_2sec(1, :), RBCTS.ET_1p5V_2sec(end-1, :), ...
     'Color', colors{1}, 'LineWidth', 2);
 
+xticks([0 10 20]);
 xlim(xL); ylim(yLRBC); xlabel('Time (s)');
 ylabel('\Delta RBC velocity (mm.s^{-1})');
 set(gca, 'FontSize', 13);
@@ -231,12 +216,12 @@ end
 
 figure; 
 subplot(131); title('Green Channel'); hold on;
-patch('XData', [10 12 12 10], 'YData', [-1 -1 2 2], 'FaceColor', ...
+patch('XData', [10 12 12 10], 'YData', [1e4 1e4 4.2e4 4.2e4], 'FaceColor', ...
     colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(Ca{3}(1, :), Ca{3}(2, :), 'Color', colors{1});
 plot(Ca_RBCPart{3}(1, :), Ca_RBCPart{3}(2, :), 'Color', colors{2}, ...
     'LineWidth', 2);
-ylim([0.3 1.3]); xlim([5 15]); yticks({});
+ylim([1e4 4.2e4]); xlim([5 15]); yticks({});
 xlabel('Time (s)'); ylabel('Photon Count (a.u.)');
 set(gca, 'FontSize', 13);
 
@@ -274,7 +259,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], ...
     colors{2}, 'edgecolor', 'none', 'facealpha', 0.5);
 legend('AutoUpdate', 'on');
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2, ...
-    'DisplayName', 'PointScan Ca^{2+}');
+    'DisplayName', 'Point acq. Ca^{2+}');
 
 xlim(xL); ylim([-0.5 1.5]); legend();
 xlabel('Time (s)'); ylabel('Normalized Signal');
@@ -294,7 +279,7 @@ disp(['R² between normalized average linescan and normalized average ' ...
 
 m = 'M1393_021020';
 type = 'Interp';
-yL = [0 80]; xL = [0 29];
+yL = [0 90]; xL = [0 29];
 
 PO2TS = struct();
 PO2TS.ET_1p5V_2sec = d.(m).(type).Oxygen_ET_1p5V_2sec.PO2All;
@@ -312,7 +297,8 @@ plot(PO2TS.ET_20mV_2sec(1, :), PO2TS.ET_20mV_2sec(2:end-2, :), ...
     'Color', [0.5 0.5 0.5]);
 plot(PO2TS.ET_20mV_2sec(1, :), PO2TS.ET_20mV_2sec(end-1, :), ...
     'Color', colors{3}, 'LineWidth', 2);
-ylabel('Po_{2} (mmHg)'); xlabel('Time (s)');
+ylabel('pO_{2} (mmHg)'); xlabel('Time (s)');
+yticks([0 20 40 60 80]); xticks([0 10 20]);
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
@@ -324,6 +310,7 @@ plot(PO2TS.ET_200mV_2sec(1, :), PO2TS.ET_200mV_2sec(2:end-2, :), ...
 plot(PO2TS.ET_200mV_2sec(1, :), PO2TS.ET_200mV_2sec(end-1, :), ...
     'Color', colors{2}, 'LineWidth', 2);
 xlabel('Time (s)');
+yticks([0 20 40 60 80]); xticks([0 10 20]);
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
@@ -334,6 +321,7 @@ plot(PO2TS.ET_1p5V_2sec(1, :), PO2TS.ET_1p5V_2sec(2:end-2, :), ...
     'Color', [0.5 0.5 0.5]);
 plot(PO2TS.ET_1p5V_2sec(1, :), PO2TS.ET_1p5V_2sec(end-1, :), ...
     'Color', colors{1}, 'LineWidth', 2);
+yticks([0 20 40 60 80]); xticks([0 10 20]);
 xlim(xL); ylim(yL);
 xlabel('Time (s)');
 set(gca, 'FontSize', 13);
@@ -397,7 +385,8 @@ h = plot(timePO2, exps.ET20mV, 'Color', [0.5 0.5 0.5]);
 % traces
 set(h(1), 'Color', 'k'); uistack(h(1), 'top');
 plot(timePO2, mean(exps.ET20mV, 1), 'Color', colors{3}, 'LineWidth', 2);
-ylabel('\Delta Po_{2} (mmHg)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} (mmHg)'); xlabel('Time (s)');
+yticks([0 20 40 60]); xticks([0 10 20]);
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13); 
 
@@ -409,6 +398,7 @@ set(h(1), 'Color', 'k'); uistack(h(1), 'top');
 plot(timePO2, mean(exps.ET200mV, 1), ...
     'Color', colors{2}, 'LineWidth', 2);
 xlabel('Time (s)');
+yticks([0 20 40 60]); xticks([0 10 20]);
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
@@ -420,6 +410,7 @@ set(h(1), 'Color', 'k'); uistack(h(1), 'top');
 plot(timePO2, mean(exps.ET1p5V, 1), ...
     'Color', colors{1}, 'LineWidth', 2);
 xlabel('Time (s)');
+yticks([0 20 40 60]); xticks([0 10 20]);
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 hold off;
@@ -506,8 +497,9 @@ for i=1:size(integ.ET20mV, 2)
     h.CData(i, :) = colors{3};
 end
 
+yticks([0 20 40]); xticks([0 10 20]);
 xlim(xL); ylim(yL);
-ylabel('AUC \Delta PO_{2} (mmHg.s)'); xlabel('Time (s)');
+ylabel('AUC \Delta pO_{2} (mmHg.s)'); xlabel('Time (s)');
 set(gca, 'FontSize', 13);
 
 subplot(132); hold on; title('ET 1% 2 s');
@@ -519,6 +511,7 @@ for i=1:size(integ.ET200mV, 2)
 end
 
 xlabel('Time (s)');
+yticks([0 20 40]); xticks([0 10 20]);
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -531,6 +524,7 @@ for i=1:size(integ.ET1p5V, 2)
 end
 
 xlabel('Time (s)'); 
+yticks([0 20 40]); xticks([0 10 20]);
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 

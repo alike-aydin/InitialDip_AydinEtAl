@@ -124,7 +124,7 @@ plot(timePO2, exps, ...
 plot(timePO2, mean(exps, 1), ...
     'Color', 'k', 'LineWidth', 2, 'DisplayName', 'Average');
 xlim(xL_TS); ylim(yL_TS); 
-ylabel('\Delta Po_{2} Mean (SD)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} Mean (SD)'); xlabel('Time (s)');
 set(gca, 'FontSize', 13);
 
 suptitle('Figure 2A');
@@ -231,8 +231,9 @@ line([x(1) x(end)], [thresh thresh], 'Color', colors{1}, 'LineWidth', 3, ...
 line([tFlow tFlow], [-1 thresh], 'Color', colors{1}, 'LineWidth', 3, ...
     'LineStyle', ':');
 scatter(tFlow, yL(1), 60, colors{1}, 'v', 'filled');
+yticks([0 1 2]);
 ylim(yL); xlim(xL);
-xlabel('Time (s)'); ylabel('Normalized Response');
+xlabel('Time (s)'); ylabel('Normalized Flow');
 set(gca, 'FontSize', 13);
 
 subplot(223); hold on;
@@ -253,8 +254,9 @@ line([x(1) x(end)], [thresh thresh], 'Color', colors{2}, 'LineWidth', 3, ...
 line([tPO2 tPO2], [-1 thresh], 'Color', colors{2}, 'LineWidth', 3, ...
     'LineStyle', ':');
 scatter(tPO2, yL(1), 60, colors{2}, 'v', 'filled');
+yticks([0 1 2]);
 ylim(yL); xlim(xL); legend();
-xlabel('Time (s)'); ylabel('Normalized Response');
+xlabel('Time (s)'); ylabel('Normalized pO_{2}');
 set(gca, 'FontSize', 13);
 
 subplot(222); hold on;
@@ -269,8 +271,9 @@ h = line([repmat(1, 1, length(PO2Delay)); ...
     repmat(2, 1, length(PO2Delay))], [flowsDelay(1:6); PO2Delay], 'Color', ...
     'k', 'LineWidth', 0.5);
 set(h(end), 'LineStyle', '--');
-xticks([1 2]); ylim([0 4.5]); 
-xticklabels({'Flow'; 'Mean Po_{2}'}); 
+xticks([1 2]); yticks([0 2 4]);
+ylim([0 4.5]); 
+xticklabels({'Flow'; 'pO_{2} Mean'}); 
 xtickangle(45);
 ylabel('Delay from Ca^{2+} onset (s)');
 set(gca, 'FontSize', 13);
@@ -286,10 +289,11 @@ scatter(repmat(1, 1, length(flowsDelay(ndip))), flowsDelay(ndip), 40, 'k', ...
     'filled');
 scatter(repmat(2, 1, length(flowsDelay(dip))), flowsDelay(dip), 40, 'k', ...
     'filled');
-xticks([1 2]); ylim([0 3.5]); 
+xticks([1 2]); yticks([0 1 2 3]);
+ylim([0 3.5]); ylim([0 4]);
 xticklabels({'Without dip'; 'With dip'}); 
 xtickangle(45);
-ylabel('Delay between Flow and Ca^{2+} onset (s)');
+ylabel('Delay between Ca^{2+} - Flow (s)');
 set(gca, 'FontSize', 13);
 
 suptitle('FIGURE 2C');

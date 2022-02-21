@@ -77,7 +77,7 @@ for i=1:size(Ca.(m{mShow}), 2)
     plot(timeCa, Ca.(m{mShow})(:, i)/max(Ca.(m{mShow})(:, i)), ...
         'Color', colors{i}, 'LineWidth', 2);
 end
-xlabel('Time (s)'); ylabel('Normalized Ca^{2+}'); 
+xlabel('Time (s)'); ylabel('Normalized Ca^{2+} (a.u.)'); 
 xlim(xL); ylim(yL)
 set(gca, 'FontSize', 13);
 
@@ -88,7 +88,7 @@ patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
 for i=1:size(RBC.(m{mShow}), 2)
     plot(timeVasc, RBC.(m{mShow})(:, i)*100, 'Color', colors{i}, 'LineWidth', 2);
 end
-xlabel('Time (s)'); ylabel('RBC Velocity (%)'); 
+xlabel('Time (s)'); ylabel('\Delta RBC Velocity (%)'); 
 xlim(xL); ylim(yL)
 set(gca, 'FontSize', 13);
 
@@ -99,7 +99,7 @@ patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
 for i=1:size(PO2.(m{mShow}), 2)
     plot(timeVasc, PO2.(m{mShow})(:, i), 'Color', colors{i}, 'LineWidth', 2);
 end
-xlabel('Time (s)'); ylabel('\Delta Po_{2} Mean (mmHg)'); 
+xlabel('Time (s)'); ylabel('\Delta pO_{2} Mean (mmHg)'); 
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -128,10 +128,11 @@ plot(timeVasc, avgsZScore(1:end-1, :), 'Color', [0.5 0.5 0.5], ...
     'LineWidth', 0.5);
 legend('AutoUpdate', 'on');
 plot(timeVasc, avgsZScore(end, :), 'Color', [0.5 0.5 0.5], ...
-    'LineWidth', 0.5, 'DisplayName', 'Single Glomeruli');
+    'LineWidth', 0.5, 'DisplayName', 'Single Glomerulus');
 plot(timeVasc, mean(avgsZScore, 1), 'Color', 'k', 'LineWidth', 2, ...
     'DisplayName', 'Average');
-xlabel('Time (s)'); ylabel('\Delta Po_{2} Mean (SD)'); 
+xlabel('Time (s)'); ylabel('\Delta pO_{2} Mean (SD)');
+xticks([0 10 20]); yticks([-4:2:8]);
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -156,6 +157,7 @@ line([m m], ylim, 'Color', colors{5}, 'LineWidth', 3, 'DisplayName', ...
 histogram(bt_bsl(:, end), [-1:0.01:1], 'DisplayName', ...
     'Baseline Distribution', 'LineStyle', 'none', 'FaceColor', colors{3});
 legend();
+xticks([-0.2 0 0.2]); yticks([0 500 1000]);
 xlim([-0.25 0.25]); ylim([0 1000]);
 ylabel('Count'); xlabel('Average Z-score (SD)');
 set(gca, 'FontSize', 13);

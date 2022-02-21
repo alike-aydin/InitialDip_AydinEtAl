@@ -68,7 +68,7 @@ patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
 allPO2 = [d.d13(:, 2) d.d14(:, 2) d.d18(:, 2)];
 plot(d.d13(:, 1), allPO2, 'LineWidth', 1, 'Color', [0.5 0.5 0.5]);
 plot(d.d13(:, 1), mean(allPO2, 2, 'omitnan'), 'LineWidth', 2, 'Color', 'k');
-xlabel('Time (s)'); ylabel('Mean Po_{2} (mmHg)');
+xlabel('Time (s)'); ylabel('pO_{2} (mmHg)');
 set(gca, 'FontSize', 13); xlim(xL); ylim(yL);
 
 suptitle('FIGURE 6A');
@@ -280,7 +280,7 @@ patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'DisplayName', 'Stimulus');
 plot(t30, mean([msg.vessels(:, 2) means.vessels(:, [2 3 12])], 2, 'omitnan'), 'LineWidth', 3, 'DisplayName', 'Vessel');
 plot(t30, mean([msg.tissues(:, 2) means.tissues(:, [1 2 5])], 2, 'omitnan'), 'LineWidth', 3, 'DisplayName', 'Tissue');
-ylabel('Po_{2} (SD)'); ylim(yL);
+ylabel('pO_{2} (SD)'); ylim(yL);
 xlabel('Time (s)'); xlim(xL); legend();
 set(gca, 'FontSize', 13); 
 
@@ -292,10 +292,10 @@ patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'DisplayName', 'Stimulus');
 m = mean([means.ca_vessels], 2, 'omitnan');
 plot(1:0.05:29, m/(max(m)), 'LineWidth', 2,'DisplayName', ...
-    'Ca^{2+} Vessel', 'LineWidth', 2, 'Color', [0.20 0.70 0.32]);
+    'Ca^{2+} Vessel', 'LineWidth', 2, 'Color', [0.06 0.38 0.15]);
 m = mean([means.ca_tissues], 2, 'omitnan');
 plot(1:0.05:29, m/(max(m)), 'LineWidth', 2, 'DisplayName', ...
-    'Ca^{2+} Tissue', 'Color', [0.06 0.38 0.15]);
+    'Ca^{2+} Tissue', 'Color', [0.20 0.70 0.32]);
 ylim(yL); xlim([5 20]);
 xlabel('Time (s)'); ylabel('Normalized Ca^{2+}'); legend();
 set(gca, 'FontSize', 13); 
@@ -308,7 +308,7 @@ plot(t30, mean([msg.vessels means.vessels], 2, 'omitnan'), ...
     'LineWidth', 3, 'DisplayName', 'Vessel');
 plot(t30, mean([msg.tissues means.tissues], 2, 'omitnan'), ...
     'LineWidth', 3, 'DisplayName', 'Tissue');
-xlabel('Time (s)'); ylabel('Po_{2} (SD)'); xlim(xL); ylim(yL);
+xlabel('Time (s)'); ylabel('pO_{2} (SD)'); xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13); 
 
 suptitle('FIGURE 6B');
@@ -324,9 +324,10 @@ line([repmat(1, 1, length(Delays.vessel([2 3 10 12]))); ...
     repmat(2, 1, length(Delays.vessel([2 3 10 12])))], ...
     [Delays.vessel([2 3 10 12]); Delays.tissue([1 2 5 6])], ...
     'LineWidth', 1, 'Color', 'k');
-xticklabels({'Vessel'; 'Tissue'}); xticks([1:2]); xtickangle(45);
+xticklabels({'Vessels'; 'Tissue'}); xticks([1:2]); xtickangle(45);
+yticks([0:1:3]);
 xlim([0.5 2.5]); ylim([0 3.5]); 
-ylabel('Delay Ca^{2+} - Po_{2} (s)');
+ylabel('Delay Ca^{2+} - pO_{2} (s)');
 set(gca, 'FontSize', 13);
 
 [h, p] = ttest(Delays.vessel([2 3 10 12]), Delays.tissue([1 2 5 6]), 'tail', 'left');

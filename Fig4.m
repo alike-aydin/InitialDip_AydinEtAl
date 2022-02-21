@@ -365,7 +365,7 @@ h = line([repmat(1, 1, length(means.PO2All.Oxy)); ...
     [means.PO2All.Oxy; means.PO2All.NoOxy], 'Color', 'k', 'LineWidth', 0.5);
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
 xticks([1:2]); xlim([0.5 2.5]); xticklabels({}); ylim(yL);
-ylabel('Po_{2} Mean (mmHg)');
+ylabel('pO_{2} Mean (mmHg)');
 set(gca, 'FontSize', 13);
 
 subplot(132); hold on;
@@ -382,7 +382,7 @@ h = line([repmat(1, 1, length(means.PO2RBC.Oxy)); ...
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
 xticks([1:2]); xlim([0.5 2.5]); ylim(yL);
 xticklabels({'Oxygenated'; 'Deoxygenated'}); xtickangle(45); 
-ylabel('Po_{2} RBC (mmHg)');
+ylabel('pO_{2} RBC (mmHg)');
 set(gca, 'FontSize', 13);
 
 subplot(133); hold on;
@@ -399,7 +399,7 @@ h = line([repmat(1, 1, length(means.PO2Inter.Oxy)); ...
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
 xticks([1:2]); xlim([0.5 2.5]); xticklabels({});
  ylim(yL);
-ylabel('Po_{2} Inter (mmHg)');
+ylabel('pO_{2} Inter RBC (mmHg)');
 set(gca, 'FontSize', 13);
 
 suptitle('FIGURE 4B')
@@ -446,7 +446,7 @@ h = line([repmat(1, 1, length(means.Flow.Oxy)); ...
     [means.Flow.Oxy; means.Flow.NoOxy], 'Color', 'k', 'LineWidth', 0.5);
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
 xticks([1:2]); xlim([0.5 2.5]); 
-ylabel('RBC Flow (RBC.s^{-1})');
+ylabel('Flow (RBC.s^{-1})');
 set(gca, 'FontSize', 13);
 
 suptitle('FIGURE 4C')
@@ -524,7 +524,7 @@ h = line([repmat(1, 1, length(caTTP.Oxy)); ...
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
 xticklabels({}); xticks([1:2]); xtickangle(45);
 xlim([0.5 2.5]); ylim([0 2]); 
-ylabel('Time to peak (s)');
+ylabel('Ca^{2+} time-to-peak (s)');
 set(gca, 'FontSize', 13);
 
 subplot(212); hold on;
@@ -538,7 +538,7 @@ h = line([repmat(1, 1, length(maxCa.Oxy)); ...
     repmat(2, 1, length(maxCa.Oxy))], ...
     [maxCa.Oxy; maxCa.NoOxy], 'Color', 'k');
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
-ylabel('Amplitude (a.u.)'); 
+ylabel('Ca^{2+} Amplitude (a.u.)'); 
 xticklabels({}); xticks([1:2]); xlim([0.5 2.5]); ylim([0 650]);
 set(gca, 'FontSize', 13);
 
@@ -840,7 +840,7 @@ ystd = std(Paired.Flow.NoOxy, 0, 1);
 patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
-ylabel('\Delta RBC Flow (RBC.s^{-1})'); xlabel('Time (s)');
+ylabel('\Delta Flow (RBC.s^{-1})'); xlabel('Time (s)');
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13); 
 
@@ -860,7 +860,7 @@ ystd = std(Paired.PO2All.NoOxy, 0, 1);
 patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
-ylabel('\Delta Po_{2} Mean (mmHg)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} Mean (mmHg)'); xlabel('Time (s)');
 xlim(xL); ylim(yL); 
 set(gca, 'FontSize', 13);
 

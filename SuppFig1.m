@@ -45,7 +45,7 @@ plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2All(1, :), ...
 plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2All(1, :), ...
     d.(m).(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, :), 'Color', 'k', ...
     'LineWidth', 2);
-ylabel('\Delta Po_{2} Mean (mmHg)'); 
+ylabel('\Delta pO_{2} Mean (mmHg)'); 
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -58,7 +58,7 @@ plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2RBC(1, :), ...
 plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2RBC(1, :), ...
     d.(m).(type).Oxygen_ET_1p5V_2sec.PO2RBC(end-1, :), 'Color', 'k', ...
     'LineWidth', 2);
-ylabel(' \Delta Po_{2} RBC (mmHg)'); 
+ylabel(' \Delta pO_{2} RBC (mmHg)'); 
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -90,13 +90,13 @@ plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2Inter(1, :), ...
 plot(d.(m).(type).Oxygen_ET_1p5V_2sec.PO2Inter(1, :), ...
     d.(m).(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, :), 'Color', 'k', ...
     'LineWidth', 2, 'DisplayName', 'Average');
-ylabel('\Delta Po_{2} Inter (mmHg)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} Inter RBC (mmHg)'); xlabel('Time (s)');
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
 suptitle('SUPP FIG 1B');
 
-%% 2C. Mean Responses in ZScore
+%% Panel C
 
 type = 'ZScore';
 tIndexPO2 = d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(1, :) >= 1 & d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(1, :) <= 29;
@@ -138,26 +138,28 @@ exps.Flow =  [d.M1393_021020.(type).Oxygen_ET_1p5V_2sec.Flow(end-1, tIndexPO2); 
 xL = [0 29]; yL = [-3 12];
 
 figure;
-subplot(131); hold on;
+subplot(311); hold on;
 patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'FaceColor', colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(timePO2, exps.Flow, 'Color', [0.5 0.5 0.5]);
 plot(timePO2, mean(exps.Flow, 1), 'Color', 'k', 'LineWidth', 2);
+xticks([0 10 20]); yticks([0 5 10]);  
 xlim(xL); ylim(yL);
 ylabel('\Delta Flow (SD)'); xlabel('Time (s)');
 set(gca, 'FontSize', 13);
 
 yL = [-3 7];
-subplot(132); hold on;
+subplot(312); hold on;
 patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'FaceColor', colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(timePO2, exps.PO2RBC, 'Color', [0.5 0.5 0.5]);
 plot(timePO2, mean(exps.PO2RBC, 1), 'Color', 'k', 'LineWidth', 2);
-ylabel('\Delta Po_{2} RBC (SD)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} RBC (SD)'); xlabel('Time (s)');
+xticks([0 10 20]); yticks([0 5]);  
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
-subplot(133); hold on;
+subplot(313); hold on;
 patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'FaceColor', colorStim, 'EdgeColor', 'none', 'LineWidth', 0.5, ...
     'FaceAlpha', 0.5, 'DisplayName', 'Stimulus');
@@ -168,11 +170,97 @@ plot(timePO2, exps.PO2Inter(end, :), 'Color', [0.5 0.5 0.5], ...
     'DisplayName', 'Single mouse');
 plot(timePO2, mean(exps.PO2Inter, 1), 'Color', 'k', 'LineWidth', 2, ...
     'DisplayName', 'Average');
-ylabel('\Delta Po_{2} Inter (SD)'); xlabel('Time (s)');
+ylabel('\Delta pO_{2} Inter RBC (SD)'); xlabel('Time (s)');
+xticks([0 10 20]); yticks([0 5]);  
 xlim(xL); ylim(yL); legend();
 set(gca, 'FontSize', 13);
 
 suptitle('SUPP FIG 1C');
 
+%% Panel D
 
+ns = [3 13 2 6 8 1 14]; ss = [4 5 7 9 10 11 12];
+type = 'Interp'; 
+tIndexPO2 = d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(1, :) >= 1 & d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(1, :) <= 29;
+timePO2 = d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(1, tIndexPO2);
+exps = struct();
+
+exps.PO2All = [d.M1393_021020.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1397_041120.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1509_261020.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1511_211020.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    mean([d.M1514_051120.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1514_191120.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2)], 1); ...
+    d.M1875_160221.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1512_281020.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1594_261120.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1804_080221.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1854_090321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1951_180321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1873_220321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    mean([d.M1952_240321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1952_310321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2)], 1); ...
+    mean([d.M1954_240321.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2); ...
+    d.M1954_010421.(type).Oxygen_ET_1p5V_2sec.PO2All(end-1, tIndexPO2)], 1)];
+
+exps.PO2Inter =  [d.M1393_021020.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1511_211020.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1512_281020.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1514_191120.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1804_080221.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ... % P_Inter values are out of line
+    d.M1854_090321.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1873_220321.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1952_240321.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    mean([d.M1954_240321.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2); ...
+    d.M1954_010421.(type).Oxygen_ET_1p5V_2sec.PO2Inter(end-1, tIndexPO2)], 1)];
+
+% Computing mean baseline pO2 and plotting against the presence of a dip
+po2 = struct();
+po2.mean.dip = mean(exps.PO2All(ss, timePO2 < 10), 2);
+po2.mean.noDip = mean(exps.PO2All(ns, timePO2 < 10), 2);
+po2.inter.dip = mean(exps.PO2Inter([2 3 4 5 6 7], timePO2 < 10), 2);
+po2.inter.noDip = mean(exps.PO2Inter([1 8 9], timePO2 < 10), 2);
+
+xL = [0.9 1.4];
+yL = [0 100];
+siz = 100; dv = 50;
+rng('default');
+
+figure; 
+subplot(211); hold on;
+scatter(repmat(1, 1, length(po2.mean.dip)) - ...
+    (randn(1, length(po2.mean.dip)))/dv, po2.mean.dip, siz, ...
+    'k', 'filled', 'MarkerEdgeColor', 'w', 'LineWidth', 1);
+scatter(repmat(1.3, 1, length(po2.mean.noDip)) - ...
+    (randn(1, length(po2.mean.noDip)))/dv, po2.mean.noDip, siz, ...
+    'k', 'filled', 'MarkerEdgeColor', 'w', 'LineWidth', 1);
+ylabel('Baseline pO_{2} Mean (mmHg)');
+xticks([1 1.3]); xticklabels({});
+xlim(xL); ylim(yL);
+set(gca, 'FontSize', 13);
+
+subplot(212); hold on;
+scatter(repmat(1, 1, length(po2.inter.dip)) - ...
+    (randn(1, length(po2.inter.dip)))/dv, po2.inter.dip, siz, ...
+    'k', 'filled', 'MarkerEdgeColor', 'w', 'LineWidth', 1);
+scatter(repmat(1.3, 1, length(po2.inter.noDip)) - ...
+    (randn(1, length(po2.inter.noDip)))/dv, po2.inter.noDip, siz, ...
+    'k', 'filled', 'MarkerEdgeColor', 'w', 'LineWidth', 1);
+xlim(xL); ylim(yL);
+ylabel('Baseline pO_{2} Inter RBC (mmHg)');
+xticks([1 1.3]); xticklabels({'With dip'; 'Without dip'});
+set(gca, 'FontSize', 13);
+
+suptitle('SUPP FIG 1D');
+
+disp('### Supp Fig 1D ###');
+
+[h, p] = ttest2(po2.mean.dip, po2.mean.noDip);
+disp('Two-sampled t-test - Two-Sided for baseline PO2 Mean without dip =/= with dip');
+disp(['No difference btween without and with dip, p = ' ...
+    num2str(p)])
+[h, p] = ttest2(po2.inter.dip, po2.inter.noDip);
+disp('Two-sampled t-test - Two-Sided for baseline PO2 Inter RBC without dip =/= with dip');
+disp(['No difference btween without and with dip, p = ' ...
+    num2str(p)])
 end
