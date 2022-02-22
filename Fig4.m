@@ -1,14 +1,14 @@
 function Fig4()
 % FIG4 Generating Figure 4 from Aydin et al.
 %
-% function Fig1() = []
+% function Fig4() = []
 %
 %   Author : Ali-Kemal Aydin, PhD student
 %   Date : April 19th, 2021
 %   Mail: ali-kemal.aydin@inserm.fr
 %   Affiliation : U968, Institut de la Vision, Paris
 %   License:  Creative Commons Attribution 4.0 International (CC BY 4.0)
-%       See LICENSE.txt or <a href="matlab:web('https://creativecommons.org/licenses/by/4.0/')">here</a> 
+%       See LICENSE.txt or <a href="matlab:web('https://creativecommons.org/licenses/by/4.0/')">here</a>
 %       for a human-readable version.
 %
 %   DESCRIPTION : Generates the panels from Figure 4 in Aydin et al.
@@ -52,11 +52,11 @@ y = mean([d.(m1).(typeCa).NoOxy_ET_1p5V_2sec.Ca(2:end-2, :); ...
     d.(m2).(typeCa).NoOxy_ET_1p5V_2sec.Ca(2:end-2, :)]);
 ystd = std([d.(m1).(typeCa).NoOxy_ET_1p5V_2sec.Ca(2:end-2, :); ...
     d.(m2).(typeCa).NoOxy_ET_1p5V_2sec.Ca(2:end-2, :)], 0, 1);
-patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...  
+patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
-ylabel('\Delta Ca^{2+} (a.u.)'); 
-ylim(yL); xlim(xL); 
+ylabel('\Delta Ca^{2+} (a.u.)');
+ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
 % RBC velocity data
@@ -83,7 +83,7 @@ ystd = std([d.(m1).(typeVasc).NoOxy_ET_1p5V_2sec.RBC(2:end-2, :); ...
 patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
-ylabel('RBC Velocity (mm.s^{-1})'); 
+ylabel('RBC Velocity (mm.s^{-1})');
 ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
@@ -111,7 +111,7 @@ ystd = std([d.(m1).(typeVasc).NoOxy_ET_1p5V_2sec.Flow(2:end-2, :); ...
 patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
-xlabel('Time (s)'); ylabel('RBC Flow (RBC.s^{-1})');  
+xlabel('Time (s)'); ylabel('RBC Flow (RBC.s^{-1})');
 xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
@@ -140,7 +140,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 ylabel('Po_{2} Mean (mmHg)');
-ylim(yL); xlim(xL); 
+ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
 % PO2 RBC Data
@@ -168,7 +168,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 ylabel('Po_{2} RBC (mmHg)');
-ylim(yL); xlim(xL); 
+ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
 % PO2 Inter Data
@@ -201,7 +201,7 @@ legend('AutoUpdate', 'on');
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2, 'DisplayName', ...
     'Reduced O_{2}');
 legend(); xlabel('Time (s)'); ylabel('PO_{2} Inter (mmHg)');
-ylim(yL); xlim(xL); 
+ylim(yL); xlim(xL);
 set(gca, 'FontSize', 13);
 
 suptitle('Figure 4A');
@@ -228,44 +228,44 @@ ca = struct(); rbc = struct(); flow = struct(); PO2All = struct(); PO2RBC = stru
 
 for i=1:length(mAll)
     d = data.(mAll{i});
-    
+
     rbc.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2);
     rbc.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2);
     means.RBC.Oxy = [means.RBC.Oxy mean(rbc.oxy)];
     means.RBC.NoOxy = [means.RBC.NoOxy mean(rbc.noOxy)];
-    
+
     flow.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2);
     flow.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2);
     means.Flow.Oxy = [means.Flow.Oxy mean(flow.oxy)];
     means.Flow.NoOxy = [means.Flow.NoOxy mean(flow.noOxy)];
-    
+
     PO2All.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2);
     PO2All.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2);
     means.PO2All.Oxy = [means.PO2All.Oxy mean(PO2All.oxy)];
     means.PO2All.NoOxy = [means.PO2All.NoOxy mean(PO2All.noOxy)];
-    
+
     PO2RBC.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2);
     PO2RBC.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2);
     means.PO2RBC.Oxy = [means.PO2RBC.Oxy mean(PO2RBC.oxy)];
     means.PO2RBC.NoOxy = [means.PO2RBC.NoOxy mean(PO2RBC.noOxy)];
-    
+
     PO2Inter.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2);
     PO2Inter.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2);
     means.PO2Inter.Oxy = [means.PO2Inter.Oxy mean(PO2Inter.oxy)];
     means.PO2Inter.NoOxy = [means.PO2Inter.NoOxy mean(PO2Inter.noOxy)];
-    
+
 end
 
 % Averaging the multiple experiments on the same mice
 for i=1:length(mDouble)
     d1 = data.(mDouble{i}{1});
     d2 = data.(mDouble{i}{2});
-    
+
     rbc.oxy = [mean(mean(d1.Interp.Oxygen_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2)) mean(mean(d2.Interp.Oxygen_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2))];
     rbc.noOxy = [mean(mean(d1.Interp.NoOxy_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2)) mean(mean(d2.Interp.NoOxy_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2))];
     means.RBC.Oxy = [means.RBC.Oxy mean(rbc.oxy)];
     means.RBC.NoOxy = [means.RBC.NoOxy mean(rbc.noOxy)];
-    
+
     if i ~= 2 % No Flow in the 2nd exp of 1952
         flow.oxy = [mean(mean(d1.Interp.Oxygen_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2)) mean(mean(d2.Interp.Oxygen_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2))];
         flow.noOxy = [mean(mean(d1.Interp.NoOxy_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2)) mean(mean(d2.Interp.NoOxy_ET_1p5V_2sec.Flow(2:end-2, tBSL), 2))];
@@ -275,12 +275,12 @@ for i=1:length(mDouble)
     end
     means.Flow.Oxy = [means.Flow.Oxy mean(flow.oxy)];
     means.Flow.NoOxy = [means.Flow.NoOxy mean(flow.noOxy)];
-    
+
     PO2All.oxy = [mean(mean(d1.Interp.Oxygen_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2)) mean(mean(d2.Interp.Oxygen_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2))];
     PO2All.noOxy = [mean(mean(d1.Interp.NoOxy_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2)) mean(mean(d2.Interp.NoOxy_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2))];
     means.PO2All.Oxy = [means.PO2All.Oxy mean(PO2All.oxy)];
     means.PO2All.NoOxy = [means.PO2All.NoOxy mean(PO2All.noOxy)];
-    
+
     if i ~= 2 % No Flow in the 2nd exp of 1952
         PO2RBC.oxy = [mean(mean(d1.Interp.Oxygen_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2)) mean(mean(d2.Interp.Oxygen_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2))];
         PO2RBC.noOxy = [mean(mean(d1.Interp.NoOxy_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2)) mean(mean(d2.Interp.NoOxy_ET_1p5V_2sec.PO2RBC(2:end-2, tBSL), 2))];
@@ -290,7 +290,7 @@ for i=1:length(mDouble)
     end
     means.PO2RBC.Oxy = [means.PO2RBC.Oxy mean(PO2RBC.oxy)];
     means.PO2RBC.NoOxy = [means.PO2RBC.NoOxy mean(PO2RBC.noOxy)];
-    
+
     if i ~= 2
         PO2Inter.oxy = [mean(mean(d1.Interp.Oxygen_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2)) mean(mean(d2.Interp.Oxygen_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2))];
         PO2Inter.noOxy = [mean(mean(d1.Interp.NoOxy_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2)) mean(mean(d2.Interp.NoOxy_ET_1p5V_2sec.PO2Inter(2:end-2, tBSL), 2))];
@@ -304,12 +304,12 @@ end
 
 for i=1:length(mNoFlow)
     d = data.(mNoFlow{i});
-    
+
     rbc.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2);
     rbc.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.RBC(2:end-2, tBSL), 2);
     means.RBC.Oxy = [means.RBC.Oxy mean(rbc.oxy)];
     means.RBC.NoOxy = [means.RBC.NoOxy mean(rbc.noOxy)];
-    
+
     PO2All.oxy = mean(d.Interp.Oxygen_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2);
     PO2All.noOxy = mean(d.Interp.NoOxy_ET_1p5V_2sec.PO2All(2:end-2, tBSL), 2);
     means.PO2All.Oxy = [means.PO2All.Oxy mean(PO2All.oxy)];
@@ -319,30 +319,30 @@ end
 
 for i=1:length(mKineticBsl)
     d = data.(mKineticBsl{i});
-    
+
     PO2RBC.Oxy = d.Raw.Oxygen_CapStart.EAT.RBC;
     PO2Inter.Oxy = d.Raw.Oxygen_CapStart.EAT.Inter;
     PO2All.Oxy = d.Raw.Oxygen_CapStart.EAT.Mean;
-    
+
     rbc.Oxy = mean(d.Interp.Oxygen.KPtSpeed(2:end-2, :), 2);
     density.Oxy = mean(d.Interp.Oxygen.KPtDensity(2:end-2, :), 2);
     flow.Oxy = mean(d.Interp.Oxygen.KPtDensity(2:end-2, :) .* d.Interp.Oxygen.KPtSpeed(2:end-2, :), 2);
-    
+
     PO2RBC.NoOxy = d.Raw.NoOxy_CapStart.EAT.RBC;
     PO2Inter.NoOxy = d.Raw.NoOxy_CapStart.EAT.Inter;
     PO2All.NoOxy = d.Raw.NoOxy_CapStart.EAT.Mean;
-    
+
     rbc.NoOxy = mean(d.Interp.NoOxy.KPtSpeed(2:end-2, :), 2);
     density.NoOxy = mean(d.Interp.NoOxy.KPtDensity(2:end-2, :), 2);
     flow.NoOxy = mean(d.Interp.NoOxy.KPtDensity(2:end-2, :) .* d.Interp.NoOxy.KPtSpeed(2:end-2, :), 2);
-    
-    
+
+
     means.RBC.Oxy = [means.RBC.Oxy mean(rbc.Oxy)];
     means.Flow.Oxy = [means.Flow.Oxy mean(flow.Oxy)];
     means.PO2All.Oxy = [means.PO2All.Oxy mean(PO2All.Oxy)];
     means.PO2RBC.Oxy = [means.PO2RBC.Oxy mean(PO2RBC.Oxy)];
     means.PO2Inter.Oxy = [means.PO2Inter.Oxy mean(PO2Inter.Oxy)];
-    
+
     means.RBC.NoOxy = [means.RBC.NoOxy mean(rbc.NoOxy)];
     means.Flow.NoOxy = [means.Flow.NoOxy mean(flow.NoOxy)];
     means.PO2All.NoOxy = [means.PO2All.NoOxy mean(PO2All.NoOxy)];
@@ -351,7 +351,7 @@ for i=1:length(mKineticBsl)
 end
 
 yL = [0 85];
-figure; 
+figure;
 subplot(131); hold on;
 b = bar([mean(means.PO2All.Oxy) mean(means.PO2All.NoOxy)], ...
     'FaceColor', 'flat');
@@ -381,7 +381,7 @@ h = line([repmat(1, 1, length(means.PO2RBC.Oxy)); ...
     [means.PO2RBC.Oxy; means.PO2RBC.NoOxy], 'Color', 'k', 'LineWidth', 0.5);
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
 xticks([1:2]); xlim([0.5 2.5]); ylim(yL);
-xticklabels({'Oxygenated'; 'Deoxygenated'}); xtickangle(45); 
+xticklabels({'Oxygenated'; 'Deoxygenated'}); xtickangle(45);
 ylabel('pO_{2} RBC (mmHg)');
 set(gca, 'FontSize', 13);
 
@@ -445,7 +445,7 @@ h = line([repmat(1, 1, length(means.Flow.Oxy)); ...
     repmat(2, 1, length(means.Flow.NoOxy))], ...
     [means.Flow.Oxy; means.Flow.NoOxy], 'Color', 'k', 'LineWidth', 0.5);
 set(h(6), 'LineStyle', '--'); % This is the mouse from Panel A
-xticks([1:2]); xlim([0.5 2.5]); 
+xticks([1:2]); xlim([0.5 2.5]);
 ylabel('Flow (RBC.s^{-1})');
 set(gca, 'FontSize', 13);
 
@@ -504,14 +504,14 @@ for i=1:size(Paired.Ca.NoOxy, 1)
     [M, I] = max(Paired.Ca.Oxy(i, timeCa < 12));
     caTTP.Oxy(i) = timeCa(I)-10;
     maxCa.Oxy(i) = M;
-    
+
     [M, I] = max(Paired.Ca.NoOxy(i, timeCa < 12));
     caTTP.NoOxy(i) = timeCa(I)-10;
     maxCa.NoOxy(i) = M;
 end
 
 figure;
-subplot(211); hold on; 
+subplot(211); hold on;
 b = bar([mean(caTTP.Oxy) mean(caTTP.NoOxy)], 'FaceColor', 'flat');
 b.CData(2, :) = colors{2};
 scatter(repmat(1, 1, length(caTTP.Oxy)), caTTP.Oxy, 20, ...
@@ -523,7 +523,7 @@ h = line([repmat(1, 1, length(caTTP.Oxy)); ...
     [caTTP.Oxy; caTTP.NoOxy], 'Color', 'k');
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
 xticklabels({}); xticks([1:2]); xtickangle(45);
-xlim([0.5 2.5]); ylim([0 2]); 
+xlim([0.5 2.5]); ylim([0 2]);
 ylabel('Ca^{2+} time-to-peak (s)');
 set(gca, 'FontSize', 13);
 
@@ -538,7 +538,7 @@ h = line([repmat(1, 1, length(maxCa.Oxy)); ...
     repmat(2, 1, length(maxCa.Oxy))], ...
     [maxCa.Oxy; maxCa.NoOxy], 'Color', 'k');
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
-ylabel('Ca^{2+} Amplitude (a.u.)'); 
+ylabel('Ca^{2+} Amplitude (a.u.)');
 xticklabels({}); xticks([1:2]); xlim([0.5 2.5]); ylim([0 650]);
 set(gca, 'FontSize', 13);
 
@@ -622,7 +622,7 @@ rbcDelay.Oxy = rbcDelay.Oxy-10;
 rbcDelay.NoOxy = rbcDelay.NoOxy-10;
 
 figure;
-subplot(211); hold on; 
+subplot(211); hold on;
 b = bar([mean(rbcDelay.Oxy) mean(rbcDelay.NoOxy)], 'FaceColor', 'flat');
 b.CData(2, :) = colors{2};
 scatter(repmat(1, 1, length(rbcDelay.Oxy)), rbcDelay.Oxy, 20, ...
@@ -634,7 +634,7 @@ h = line([repmat(1, 1, length(rbcDelay.Oxy)); ...
     [rbcDelay.Oxy; rbcDelay.NoOxy], 'Color', 'k');
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
 xticklabels({'Oxygenated'; 'Deoxygenated'}); xticks([1:2]); xtickangle(45);
-xlim([0.5 2.5]); ylim([0 3]); 
+xlim([0.5 2.5]); ylim([0 3]);
 ylabel('Delay Velocity onset (s)');
 set(gca, 'FontSize', 13);
 
@@ -649,7 +649,7 @@ h = line([repmat(1, 1, length(flowsDelay.Oxy)); ...
     repmat(2, 1, length(flowsDelay.Oxy))], ...
     [flowsDelay.Oxy; flowsDelay.NoOxy], 'Color', 'k');
 set(h(end), 'LineStyle', '--'); % This is the mouse from Panel A
-ylabel('Delay Flow onset (s)'); 
+ylabel('Delay Flow onset (s)');
 xticklabels({}); xticks([1:2]); xlim([0.5 2.5]); ylim([0 3]);
 set(gca, 'FontSize', 13);
 
@@ -800,11 +800,11 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 set(gca, 'FontSize', 13);
-ylabel('\Delta Ca^{2+} (a.u.)'); 
+ylabel('\Delta Ca^{2+} (a.u.)');
 xlim(xL); ylim(yL);
 
 % RBC velocity data
-subplot(222); hold on; 
+subplot(222); hold on;
 yL = [-0.2 0.8];
 patch('XData', [10 12 12 10], 'YData', [yL(1) yL(1) yL(2) yL(2)], ...
     'FaceColor', colorStim, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
@@ -822,7 +822,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 ylabel('\Delta RBC Velocity (mm.s^{-1})');
 xlim(xL); ylim(yL);
-set(gca, 'FontSize', 13); 
+set(gca, 'FontSize', 13);
 
 % Flow data
 subplot(223); hold on;
@@ -842,7 +842,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 ylabel('\Delta Flow (RBC.s^{-1})'); xlabel('Time (s)');
 xlim(xL); ylim(yL);
-set(gca, 'FontSize', 13); 
+set(gca, 'FontSize', 13);
 
 % PO2 data
 subplot(224); hold on;
@@ -861,7 +861,7 @@ patch([x x(end:-1:1)], [y-ystd y(end:-1:1) + ystd(end:-1:1)], colors{2}, ...
     'EdgeColor', 'none', 'FaceAlpha', 0.5);
 plot(x, y, 'Color', colors{2}, 'LineWidth', 2);
 ylabel('\Delta pO_{2} Mean (mmHg)'); xlabel('Time (s)');
-xlim(xL); ylim(yL); 
+xlim(xL); ylim(yL);
 set(gca, 'FontSize', 13);
 
 suptitle('FIGURE 4F');
@@ -944,7 +944,7 @@ rng('default'); % For reproduciblity
 
 for i=1:length(Oxy)
     mat.Oxy = Oxy{i}; mat.NoOxy = NoOxy{i};
-    
+
     bt_bsl.Oxy(:, i) = matrixBootstrap(nboot, @mean, mat.Oxy(:, timeVasc > bslFrame(1) & timeVasc < bslFrame(2)));
     bt_bsl.NoOxy(:, i) = matrixBootstrap(nboot, @mean, mat.NoOxy(:, timeVasc > bslFrame(1) & timeVasc < bslFrame(2)));
 end
@@ -1024,4 +1024,3 @@ suptitle('FIGURE 4G');
 
 
 end
-
