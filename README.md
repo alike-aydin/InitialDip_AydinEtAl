@@ -1,6 +1,6 @@
 # InitialDip_AydinEtAl
 
-This repository complements **The oxygen initial dip in the brain of anesthetized and awake mice**, A.-K. Aydin *et al.*, 2022. It provides the scripts necessary to generate the main and supplementary figures.
+This repository complements [**The oxygen initial dip in the brain of anesthetized and awake mice**, A.-K. Aydin *et al.*, PNAS, 2022](https://doi.org/10.1073/pnas.2200205119). It provides the scripts necessary to generate the main and supplementary figures.
 
 ## Procedure
 
@@ -28,7 +28,7 @@ These scripts have been tested with **MATLAB R2018a** on **Windows 10 & 11**.
 
 ## Links
 
-+ Aydin et al., 2022: [LINK](link)
++ Aydin et al., 2022: [https://doi.org/10.1073/pnas.2200205119](https://doi.org/10.1073/pnas.2200205119)
 + Git repository: [https://github.com/alike-aydin/InitialDip_AydinEtAl](https://github.com/alike-aydin/InitialDip_AydinEtAl)
 + Zenodo repository: [https://doi.org/10.5281/zenodo.5804933](https://doi.org/10.5281/zenodo.5804933)
 
